@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".applyToBasketballTeam">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="28dp">
+        
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_launcher_background"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BB Player Registration"
+            android:textSize="28dp"
+            android:gravity="center"
+            android:textStyle="bold"/>
+        
+        <EditText
+            android:id="@+id/bbplayername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Add Full Names"
+            android:layout_marginTop="24dp"/>
+        
+        <EditText
+            android:id="@+id/bbposition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Playing Position"
+            android:layout_marginTop="24dp"/>
+        
+        <RadioGroup
+            android:id="@+id/radioGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp">
+
+            <RadioButton
+                android:id="@+id/radioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/radioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select School"
+            android:textSize="24sp"
+            android:layout_marginTop="24dp"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/selectSchool"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:entries="@array/schools"
+
+            />
+
+        <Button
+            android:id="@+id/btnApplyBB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apply"/>
+
+
+
+
+        
+        
+    </LinearLayout>
+
+
+
+  </ScrollView>

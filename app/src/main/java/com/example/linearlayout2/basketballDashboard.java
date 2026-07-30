@@ -10,33 +10,26 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class userDashboard extends AppCompatActivity {
+public class basketballDashboard extends AppCompatActivity {
 
-    CardView basketball;
-
+    CardView apply;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_user_dashboard);
+        setContentView(R.layout.activity_basketball_dashboard);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        basketball = findViewById(R.id.cardBasketball);
+        apply = findViewById(R.id.cardApply);
 
-        basketball.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                   userDashboard.this,
-                   basketballDashboard.class
-            );
-
-            startActivity(intent);
-
+        apply.setOnClickListener(v -> {
+            startActivity(new Intent(this, applyToBasketballTeam.class));
         });
     }
 }

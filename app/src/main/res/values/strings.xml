@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">linearlayout2</string>
+    <string name="aboutBB">Basketball is a fast-paced team sport where two opposing squads of five players compete on a rectangular court. The primary objective is to score points by shooting the ball through an elevated hoop while adhering to strict dribbling and passing rules</string>
+    <string-array name="schools">
+        <item>Select school</item>
+        <item>School of Technology</item>
+        <item>School of Business</item>
+        <item>School of Medicine</item>
+        <item>School of Humanities</item>
+    </string-array>
 </resources>

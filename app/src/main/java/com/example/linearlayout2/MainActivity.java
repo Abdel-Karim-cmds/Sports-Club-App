@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             if(emailuserpicked.isEmpty() || passworduserpicked.isEmpty()){
 
                 Toast.makeText(this, "Please fill in the email and password", Toast.LENGTH_SHORT).show();
+            return;
             }
 
             firebaseAuth.signInWithEmailAndPassword(emailuserpicked, passworduserpicked).addOnCompleteListener(
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
                             Intent openuserdashboard = new Intent(MainActivity.this, userDashboard.class);
                             startActivity(openuserdashboard);
+                            finish();
                         } else {
 
                             Toast.makeText(this, "Login Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
