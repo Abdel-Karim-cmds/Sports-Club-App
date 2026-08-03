@@ -1,11 +1,20 @@
 <resources>
-    <string name="app_name">linearlayout2</string>
-    <string name="aboutBB">Basketball is a fast-paced team sport where two opposing squads of five players compete on a rectangular court. The primary objective is to score points by shooting the ball through an elevated hoop while adhering to strict dribbling and passing rules</string>
+    <string name="app_name">USIU Sports Club</string>
+    <string name="aboutBB">Basketball is a fast-paced team sport where two opposing squads of five players compete on a rectangular court. The primary objective is to score points by shooting the ball through an elevated hoop while adhering to strict dribbling and passing rules.</string>
     <string-array name="schools">
-        <item>Select school</item>
-        <item>School of Technology</item>
-        <item>School of Business</item>
-        <item>School of Medicine</item>
-        <item>School of Humanities</item>
+        <item>Select school / department</item>
+        <item>SST</item>
+        <item>CSOB</item>
+        <item>SHSS</item>
+        <item>SPHS</item>
+        <item>SCCCA</item>
+    </string-array>
+    <string-array name="sports">
+        <item>Basketball</item>
+        <item>Football</item>
+        <item>Volleyball</item>
+        <item>Field Hockey</item>
+        <item>Tennis</item>
+        <item>Swimming</item>
     </string-array>
 </resources>

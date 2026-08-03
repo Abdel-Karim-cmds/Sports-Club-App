@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_main"
     android:fillViewport="true"
-    tools:context=".userDashboard">
+    tools:context=".ClubManagerDashboardActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Top User Header Bar -->
+        <!-- Top Toolbar Header -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,67 +30,42 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txtWelcomeUser"
+                    android:id="@+id/txtManagerHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Welcome Member!"
+                    android:text="Club Management Hub"
                     android:textColor="@color/text_primary"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txtUserEmail"
+                    android:id="@+id/txtManagerEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="member@usiu.ac.ke"
+                    android:text="manager@usiu.ac.ke"
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
 
             </LinearLayout>
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btnManagerSignOut"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/btnManagerPortal"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/bg_input_field"
-                    android:contentDescription="Club Manager Portal"
-                    android:src="@drawable/ic_trophy"
-                    app:tint="@color/gold_accent" />
-
-                <ImageButton
-                    android:id="@+id/btnAnnouncements"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="8dp"
-                    android:background="@drawable/bg_input_field"
-                    android:contentDescription="Announcements"
-                    android:src="@drawable/ic_announcement"
-                    app:tint="@color/primary_accent_light" />
-
-                <ImageButton
-                    android:id="@+id/btnProfile"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="8dp"
-                    android:background="@drawable/bg_input_field"
-                    android:contentDescription="User Profile"
-                    android:src="@drawable/ic_person"
-                    app:tint="@color/gold_accent" />
-
-            </LinearLayout>
+                android:backgroundTint="#EF4444"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Sign Out"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
-        <!-- Quick Stats Banner -->
+        <!-- Banner Card -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardQuickStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
@@ -106,30 +81,30 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:src="@drawable/ic_trophy"
                     app:tint="@color/gold_accent" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="14dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="USIU Sports Hub"
+                        android:text="Club Admin Control Panel"
                         android:textColor="@color/text_primary"
-                        android:textSize="16sp"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Select a sport below to join teams or check results"
+                        android:text="Manage player approvals, fixtures &amp; announcements"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
 
@@ -139,19 +114,9 @@
 
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Choose Your Sport"
-            android:textColor="@color/text_primary"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <!-- 1. Basketball Card -->
+        <!-- 1. Manage Player Applications Card -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardBasketball"
+            android:id="@+id/cardManageApps"
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:layout_marginBottom="14dp"
@@ -169,9 +134,10 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:src="@drawable/ic_basketball" />
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_group"
+                    app:tint="@color/gold_accent" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -183,7 +149,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Basketball"
+                        android:text="Review Player Applications"
                         android:textColor="@color/text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -191,9 +157,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5-on-5 Court League • Active Squads"
+                        android:text="Approve or reject pending player registrations"
                         android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -201,9 +167,9 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- 2. Football / Soccer Card -->
+        <!-- 2. Schedule Fixture / Update Scores Card -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardSoccer"
+            android:id="@+id/cardScheduleFixture"
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:layout_marginBottom="14dp"
@@ -221,9 +187,10 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:src="@drawable/ic_soccer" />
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_calendar"
+                    app:tint="@color/emerald_accent" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -235,7 +202,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Football"
+                        android:text="Schedule Fixture / Game Scores"
                         android:textColor="@color/text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -243,9 +210,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="11-a-side Championship • Tryouts Open"
+                        android:text="Post upcoming matches and enter final scores"
                         android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -253,9 +220,9 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- 3. Volleyball Card -->
+        <!-- 3. Post Announcement Card -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardVolleyball"
+            android:id="@+id/cardPostAnnouncement"
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:layout_marginBottom="14dp"
@@ -273,9 +240,10 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:src="@drawable/ic_volleyball" />
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_announcement"
+                    app:tint="#F472B6" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -287,7 +255,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Volleyball"
+                        android:text="Post Announcement / Tryouts"
                         android:textColor="@color/text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -295,9 +263,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Indoor &amp; Beach Volleyball • Roster Open"
+                        android:text="Publish tryout dates, notices &amp; event updates"
                         android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -305,113 +273,9 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- 4. Hockey Card -->
+        <!-- 4. View Active Roster Card -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardHockey"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_marginBottom="14dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:cardBackgroundColor="@color/bg_card"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:src="@drawable/ic_hockey" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Field Hockey"
-                        android:textColor="@color/text_primary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Varsity Hockey • Season Fixtures"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- 5. Tennis Card -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardTennis"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_marginBottom="14dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:cardBackgroundColor="@color/bg_card"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:src="@drawable/ic_tennis" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tennis"
-                        android:textColor="@color/text_primary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Singles &amp; Doubles Ladder"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- 6. Swimming Card -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardSwimming"
+            android:id="@+id/cardViewManagerRoster"
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:layout_marginBottom="24dp"
@@ -429,9 +293,10 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:src="@drawable/ic_swimming" />
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_person"
+                    app:tint="@color/primary_accent_light" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -443,7 +308,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Swimming"
+                        android:text="View Squad Roster"
                         android:textColor="@color/text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -451,9 +316,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Aquatic Squad &amp; Meet Results"
+                        android:text="View approved squad members and team roster"
                         android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
