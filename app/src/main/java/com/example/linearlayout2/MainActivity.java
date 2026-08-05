@@ -39,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         firebaseManager = FirebaseManager.getInstance();
-        firebaseManager.seedInitialDataIfEmpty();
 
-        // Check if user is already logged in
         if (firebaseManager.getCurrentUser() != null) {
             routeUserToRoleDashboard();
             return;

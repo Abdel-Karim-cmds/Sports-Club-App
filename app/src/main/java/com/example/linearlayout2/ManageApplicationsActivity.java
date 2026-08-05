@@ -35,7 +35,6 @@ public class ManageApplicationsActivity extends AppCompatActivity {
 
         firebaseManager = FirebaseManager.getInstance();
 
-        // Access control check for ATHLETE role
         String uid = firebaseManager.getCurrentUserId();
         firebaseManager.getUserByUid(uid, new FirebaseManager.DataCallback<com.example.linearlayout2.models.User>() {
             @Override
@@ -71,7 +70,6 @@ public class ManageApplicationsActivity extends AppCompatActivity {
 
                 String managerSport = firebaseManager.getManagerSport();
                 
-                // Filter only Pending or Under Review applications AND matching manager's sport
                 List<ApplicationRecord> pendingList = new ArrayList<>();
                 for (ApplicationRecord rec : data) {
                     boolean isPending = rec.getStatus() == null || "Pending".equalsIgnoreCase(rec.getStatus()) || "Under Review".equalsIgnoreCase(rec.getStatus());

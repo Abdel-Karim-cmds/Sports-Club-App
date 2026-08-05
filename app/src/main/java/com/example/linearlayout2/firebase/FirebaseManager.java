@@ -71,152 +71,6 @@ public class FirebaseManager {
         void onError(String error);
     }
 
-    // ==========================================
-    // SEED SAMPLE DATA IF FIRESTORE IS EMPTY
-    // ==========================================
-
-    public void seedInitialDataIfEmpty() {
-        db.collection("users").limit(1).get().addOnSuccessListener(snapshot -> {
-            if (snapshot.isEmpty()) {
-                seedUsers();
-            }
-        });
-
-        db.collection("clubs").limit(1).get().addOnSuccessListener(snapshot -> {
-            if (snapshot.isEmpty()) {
-                seedClubs();
-            }
-        });
-
-        db.collection("players").limit(1).get().addOnSuccessListener(snapshot -> {
-            if (snapshot.isEmpty()) {
-                seedPlayers();
-            }
-        });
-
-        db.collection("fixtures").limit(1).get().addOnSuccessListener(snapshot -> {
-            if (snapshot.isEmpty()) {
-                seedFixtures();
-            }
-        });
-
-        db.collection("announcements").limit(1).get().addOnSuccessListener(snapshot -> {
-            if (snapshot.isEmpty()) {
-                seedAnnouncements();
-            }
-        });
-
-        ensureDefaultAccountsExist();
-    }
-
-    private void seedUsers() {
-        List<User> sampleUsers = new ArrayList<>();
-        sampleUsers.add(new User("admin_seed_uid", "System Admin", "admin@usiu.ac.ke", "ADMIN", System.currentTimeMillis()));
-        sampleUsers.add(new User("manager_basketball_uid", "Basketball Manager", "basketball@usiu.ac.ke", "CLUB_MANAGER", System.currentTimeMillis()));
-        sampleUsers.add(new User("manager_football_uid", "Football Manager", "football@usiu.ac.ke", "CLUB_MANAGER", System.currentTimeMillis()));
-        sampleUsers.add(new User("manager_volleyball_uid", "Volleyball Manager", "volleyball@usiu.ac.ke", "CLUB_MANAGER", System.currentTimeMillis()));
-        sampleUsers.add(new User("manager_hockey_uid", "Hockey Manager", "hockey@usiu.ac.ke", "CLUB_MANAGER", System.currentTimeMillis()));
-        sampleUsers.add(new User("manager_tennis_uid", "Tennis Manager", "tennis@usiu.ac.ke", "CLUB_MANAGER", System.currentTimeMillis()));
-        sampleUsers.add(new User("manager_swimming_uid", "Swimming Manager", "swimming@usiu.ac.ke", "CLUB_MANAGER", System.currentTimeMillis()));
-        sampleUsers.add(new User("manager_default_uid", "USIU Club Manager", "manager@usiu.ac.ke", "CLUB_MANAGER", System.currentTimeMillis()));
-        sampleUsers.add(new User("athlete_seed_uid", "Student Athlete", "athlete@usiu.ac.ke", "ATHLETE", System.currentTimeMillis()));
-
-        for (User u : sampleUsers) {
-            db.collection("users").document(u.getUid()).set(u);
-        }
-        Log.d(TAG, "Sample users table seeded in Firestore");
-    }
-
-    private void ensureDefaultAccountsExist() {
-        // Create Admin user in Auth if needed
-        provisionAccount("admin@usiu.ac.ke", "admin123", "System Admin", "ADMIN");
-
-        // Create Sport Manager users in Auth if needed
-        provisionAccount("basketball@usiu.ac.ke", "manager123", "Basketball Manager", "CLUB_MANAGER");
-        provisionAccount("football@usiu.ac.ke", "manager123", "Football Manager", "CLUB_MANAGER");
-        provisionAccount("volleyball@usiu.ac.ke", "manager123", "Volleyball Manager", "CLUB_MANAGER");
-        provisionAccount("hockey@usiu.ac.ke", "manager123", "Hockey Manager", "CLUB_MANAGER");
-        provisionAccount("tennis@usiu.ac.ke", "manager123", "Tennis Manager", "CLUB_MANAGER");
-        provisionAccount("swimming@usiu.ac.ke", "manager123", "Swimming Manager", "CLUB_MANAGER");
-        provisionAccount("manager@usiu.ac.ke", "manager123", "USIU Club Manager", "CLUB_MANAGER");
-    }
-
-    private void provisionAccount(String email, String password, String name, String userType) {
-        auth.createUserWithEmailAndPassword(email, password)
-                .addOnSuccessListener(authResult -> {
-                    if (authResult.getUser() != null) {
-                        String uid = authResult.getUser().getUid();
-                        User u = new User(uid, name, email, userType, System.currentTimeMillis());
-                        db.collection("users").document(uid).set(u);
-                        Log.d(TAG, "Provisioned account: " + email);
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    // Account might already exist, update Firestore record by querying by email
-                    db.collection("users").whereEqualTo("email", email).get().addOnSuccessListener(snapshots -> {
-                        if (snapshots.isEmpty()) {
-                            String docId = "user_" + email.replace("@", "_").replace(".", "_");
-                            User u = new User(docId, name, email, userType, System.currentTimeMillis());
-                            db.collection("users").document(docId).set(u);
-                        }
-                    });
-                });
-    }
-
-    private void seedClubs() {
-        List<Club> sampleClubs = new ArrayList<>();
-        sampleClubs.add(new Club("c1", "USIU Basketball Club", "Basketball", "Premier varsity basketball program competing in regional leagues.", "basketball@usiu.ac.ke", "Active", System.currentTimeMillis()));
-        sampleClubs.add(new Club("c2", "USIU Football Club", "Football", "Intercollegiate football team and academy squad.", "football@usiu.ac.ke", "Active", System.currentTimeMillis()));
-        sampleClubs.add(new Club("c3", "USIU Spikers Volleyball", "Volleyball", "Men's and women's competitive court & beach volleyball.", "volleyball@usiu.ac.ke", "Active", System.currentTimeMillis()));
-        sampleClubs.add(new Club("c4", "USIU Field Hockey Club", "Field Hockey", "Established hockey squad with regular weekend fixtures.", "hockey@usiu.ac.ke", "Active", System.currentTimeMillis()));
-        sampleClubs.add(new Club("c5", "USIU Tennis Academy", "Tennis", "Singles and doubles competitive ladder and coaching.", "tennis@usiu.ac.ke", "Active", System.currentTimeMillis()));
-        sampleClubs.add(new Club("c6", "USIU Aquatics Swim Club", "Swimming", "Competitive swimming squad for freestyle, relay and meets.", "swimming@usiu.ac.ke", "Active", System.currentTimeMillis()));
-
-        for (Club c : sampleClubs) {
-            db.collection("clubs").document(c.getId()).set(c);
-        }
-        Log.d(TAG, "Sample clubs seeded");
-    }
-
-    private void seedPlayers() {
-        List<Player> samplePlayers = new ArrayList<>();
-        samplePlayers.add(new Player("p1", "Marcus Johnson", "Basketball", "Point Guard", "Male", "USIU Basketball Club", "+254 700-0101", "18.5 PPG, 6.2 APG"));
-        samplePlayers.add(new Player("p2", "Elena Rostova", "Basketball", "Shooting Guard", "Female", "USIU Basketball Club", "+254 700-0102", "14.2 PPG, 4.1 RPG"));
-        samplePlayers.add(new Player("p4", "Carlos Silva", "Football", "Striker", "Male", "USIU Football Club", "+254 700-0104", "12 Goals in 10 Games"));
-        samplePlayers.add(new Player("p6", "Aisha Abubakar", "Volleyball", "Outside Hitter", "Female", "USIU Volleyball Club", "+254 700-0106", "154 Kills, 28 Aces"));
-
-        for (Player p : samplePlayers) {
-            db.collection("players").document(p.getId()).set(p);
-        }
-        Log.d(TAG, "Sample players seeded");
-    }
-
-    private void seedFixtures() {
-        List<Fixture> sampleFixtures = new ArrayList<>();
-        sampleFixtures.add(new Fixture("f1", "Basketball", "USIU Tigers", "Tigers Varsity", "84", "78", "Yesterday", "Main Arena", "Finished"));
-        sampleFixtures.add(new Fixture("f2", "Basketball", "USIU Tigers", "Eagles Club", "0", "0", "Tomorrow, 6:00 PM", "Sports Complex Court 1", "Upcoming"));
-        sampleFixtures.add(new Fixture("f3", "Football", "USIU Strikers", "City United", "3", "1", "3 days ago", "USIU Central Pitch", "Finished"));
-
-        for (Fixture f : sampleFixtures) {
-            db.collection("fixtures").document(f.getId()).set(f);
-        }
-        Log.d(TAG, "Sample fixtures seeded");
-    }
-
-    private void seedAnnouncements() {
-        List<Announcement> sampleAnnouncements = new ArrayList<>();
-        sampleAnnouncements.add(new Announcement("a1", "Annual Club Tryouts 2026", "Registration is open for Basketball, Football, Volleyball, Hockey, Tennis, and Swimming! Fill out your application in the app now.", "Today", "Tryouts", "Club Manager"));
-        sampleAnnouncements.add(new Announcement("a2", "Inter-University Tournament Finals", "Come support USIU Tigers this Saturday at 6:00 PM in the Main Arena!", "2 days ago", "Match", "Sports Board"));
-
-        for (Announcement a : sampleAnnouncements) {
-            db.collection("announcements").document(a.getId()).set(a);
-        }
-        Log.d(TAG, "Sample announcements seeded");
-    }
-
-    // ==========================================
-    // USERS TABLE OPERATIONS
-    // ==========================================
 
     public void saveUser(User user, DataCallback<Void> callback) {
         if (user.getUid() == null || user.getUid().isEmpty()) {
@@ -268,9 +122,6 @@ public class FirebaseManager {
                 });
     }
 
-    // ==========================================
-    // ADMIN FUNCTIONS: CLUBS MANAGEMENT
-    // ==========================================
 
     public void registerClub(Club club, DataCallback<String> callback) {
         if (club.getCreatedAt() == 0) club.setCreatedAt(System.currentTimeMillis());
@@ -291,22 +142,10 @@ public class FirebaseManager {
                 if (club.getId() == null) club.setId(doc.getId());
                 clubs.add(club);
             }
-            if (clubs.isEmpty()) clubs = getLocalFallbackClubs();
             callback.onSuccess(clubs);
-        }).addOnFailureListener(e -> callback.onSuccess(getLocalFallbackClubs()));
+        }).addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
 
-    private List<Club> getLocalFallbackClubs() {
-        List<Club> list = new ArrayList<>();
-        list.add(new Club("c1", "USIU Basketball Club", "Basketball", "Premier varsity basketball squad.", "basketball@usiu.ac.ke", "Active", System.currentTimeMillis()));
-        list.add(new Club("c2", "USIU Football Club", "Football", "Intercollegiate football team.", "football@usiu.ac.ke", "Active", System.currentTimeMillis()));
-        list.add(new Club("c3", "USIU Spikers Volleyball", "Volleyball", "Men's and women's court volleyball.", "volleyball@usiu.ac.ke", "Active", System.currentTimeMillis()));
-        return list;
-    }
-
-    // ==========================================
-    // CLUB MANAGER FUNCTIONS: APPLICATIONS & FIXTURES
-    // ==========================================
 
     public void getAllApplications(DataCallback<List<ApplicationRecord>> callback) {
         db.collection("applications").get().addOnSuccessListener(snapshots -> {
@@ -316,17 +155,8 @@ public class FirebaseManager {
                 if (rec.getId() == null) rec.setId(doc.getId());
                 records.add(rec);
             }
-            if (records.isEmpty()) records = getLocalFallbackApplications();
             callback.onSuccess(records);
-        }).addOnFailureListener(e -> callback.onSuccess(getLocalFallbackApplications()));
-    }
-
-    private List<ApplicationRecord> getLocalFallbackApplications() {
-        List<ApplicationRecord> list = new ArrayList<>();
-        list.add(new ApplicationRecord("app1", "user1", "James Kimani", "Basketball", "Point Guard", "Male", "School of Technology", "Pending", "Today"));
-        list.add(new ApplicationRecord("app2", "user2", "Sarah Odhiambo", "Football", "Striker", "Female", "School of Business", "Pending", "Yesterday"));
-        list.add(new ApplicationRecord("app3", "user3", "Brian Ochieng", "Volleyball", "Outside Hitter", "Male", "School of Health Sciences", "Pending", "2 days ago"));
-        return list;
+        }).addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
 
     public void updateApplicationStatus(String appId, String status, ApplicationRecord record, DataCallback<Void> callback) {
@@ -364,9 +194,6 @@ public class FirebaseManager {
         }).addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
 
-    // ==========================================
-    // GENERAL PLAYERS & DATA QUERIES
-    // ==========================================
 
     public void getPlayers(String sport, DataCallback<List<Player>> callback) {
         Query query = db.collection("players");
@@ -381,23 +208,8 @@ public class FirebaseManager {
                 if (player.getId() == null) player.setId(doc.getId());
                 players.add(player);
             }
-            if (players.isEmpty()) players = getLocalFallbackPlayers(sport);
             callback.onSuccess(players);
-        }).addOnFailureListener(e -> callback.onSuccess(getLocalFallbackPlayers(sport)));
-    }
-
-    private List<Player> getLocalFallbackPlayers(String sport) {
-        List<Player> list = new ArrayList<>();
-        list.add(new Player("p1", "Marcus Johnson", "Basketball", "Point Guard", "Male", "USIU Basketball Club", "+254 700-0101", "18.5 PPG, 6.2 APG"));
-        list.add(new Player("p2", "Elena Rostova", "Basketball", "Shooting Guard", "Female", "USIU Basketball Club", "+254 700-0102", "14.2 PPG, 4.1 RPG"));
-        list.add(new Player("p4", "Carlos Silva", "Football", "Striker", "Male", "USIU Football Club", "+254 700-0104", "12 Goals in 10 Games"));
-
-        if (sport == null || sport.equals("All")) return list;
-        List<Player> filtered = new ArrayList<>();
-        for (Player p : list) {
-            if (p.getSport().equalsIgnoreCase(sport)) filtered.add(p);
-        }
-        return filtered.isEmpty() ? list : filtered;
+        }).addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
 
     public void submitApplication(ApplicationRecord appRecord, DataCallback<String> callback) {
@@ -443,23 +255,8 @@ public class FirebaseManager {
                 if (f.getId() == null) f.setId(doc.getId());
                 fixtures.add(f);
             }
-            if (fixtures.isEmpty()) fixtures = getLocalFallbackFixtures(sport);
             callback.onSuccess(fixtures);
-        }).addOnFailureListener(e -> callback.onSuccess(getLocalFallbackFixtures(sport)));
-    }
-
-    private List<Fixture> getLocalFallbackFixtures(String sport) {
-        List<Fixture> list = new ArrayList<>();
-        list.add(new Fixture("f1", "Basketball", "USIU Tigers", "Tigers Varsity", "84", "78", "Yesterday", "Main Arena", "Finished"));
-        list.add(new Fixture("f2", "Basketball", "USIU Tigers", "Eagles Club", "0", "0", "Tomorrow, 6:00 PM", "Sports Complex Court 1", "Upcoming"));
-        list.add(new Fixture("f3", "Football", "USIU Strikers", "City United", "3", "1", "3 days ago", "USIU Central Pitch", "Finished"));
-
-        if (sport == null || sport.equals("All")) return list;
-        List<Fixture> filtered = new ArrayList<>();
-        for (Fixture f : list) {
-            if (f.getSport().equalsIgnoreCase(sport)) filtered.add(f);
-        }
-        return filtered.isEmpty() ? list : filtered;
+        }).addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
 
     public void getAnnouncements(DataCallback<List<Announcement>> callback) {
@@ -470,16 +267,8 @@ public class FirebaseManager {
                 if (a.getId() == null) a.setId(doc.getId());
                 announcements.add(a);
             }
-            if (announcements.isEmpty()) announcements = getLocalFallbackAnnouncements();
             callback.onSuccess(announcements);
-        }).addOnFailureListener(e -> callback.onSuccess(getLocalFallbackAnnouncements()));
-    }
-
-    private List<Announcement> getLocalFallbackAnnouncements() {
-        List<Announcement> list = new ArrayList<>();
-        list.add(new Announcement("a1", "Annual Sports Club Tryouts 2026", "Registration is open for Basketball, Football, Volleyball, Hockey, Tennis, and Swimming! Apply inside the app.", "Today", "Tryouts", "Club Manager"));
-        list.add(new Announcement("a2", "Inter-University Tournament Finals", "Come support USIU Tigers this Saturday at 6:00 PM in the Main Arena!", "2 days ago", "Match", "Sports Board"));
-        return list;
+        }).addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
 
     public String getManagerSport() {

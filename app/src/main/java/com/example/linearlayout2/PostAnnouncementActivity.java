@@ -35,7 +35,6 @@ public class PostAnnouncementActivity extends AppCompatActivity {
 
         firebaseManager = FirebaseManager.getInstance();
 
-        // Access control check for ATHLETE role
         String uid = firebaseManager.getCurrentUserId();
         firebaseManager.getUserByUid(uid, new FirebaseManager.DataCallback<com.example.linearlayout2.models.User>() {
             @Override

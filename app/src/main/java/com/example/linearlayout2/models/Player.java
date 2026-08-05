@@ -11,7 +11,6 @@ public class Player {
     private String stats;
 
     public Player() {
-        // Default constructor required for Firebase Firestore deserialization
     }
 
     public Player(String id, String name, String sport, String position, String gender, String school, String phone, String stats) {

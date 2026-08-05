@@ -12,7 +12,6 @@ public class Fixture {
     private String status; // "Upcoming", "Live", "Finished"
 
     public Fixture() {
-        // Required for Firestore
     }
 
     public Fixture(String id, String sport, String homeTeam, String awayTeam, String homeScore, String awayScore, String date, String venue, String status) {

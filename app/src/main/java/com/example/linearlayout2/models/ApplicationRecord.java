@@ -13,7 +13,6 @@ public class ApplicationRecord {
     private String submittedAt;
 
     public ApplicationRecord() {
-        // Required for Firestore
     }
 
     public ApplicationRecord(String id, String userId, String playerName, String sport, String position, String gender, String school, String status, String submittedAt) {

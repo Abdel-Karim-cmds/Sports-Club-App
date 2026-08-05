@@ -4,6 +4,8 @@
         <item name="colorPrimary">@color/primary_accent</item>
         <item name="android:statusBarColor">@color/bg_main</item>
         <item name="android:windowBackground">@color/bg_main</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Theme.Linearlayout2" parent="Base.Theme.Linearlayout2" />

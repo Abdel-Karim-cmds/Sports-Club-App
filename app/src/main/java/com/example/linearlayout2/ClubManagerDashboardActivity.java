@@ -36,7 +36,6 @@ public class ClubManagerDashboardActivity extends AppCompatActivity {
             txtManagerEmail.setText(firebaseManager.getCurrentUserEmail());
         }
 
-        // Access control check for ATHLETE role
         String uid = firebaseManager.getCurrentUserId();
         String email = firebaseManager.getCurrentUserEmail();
 

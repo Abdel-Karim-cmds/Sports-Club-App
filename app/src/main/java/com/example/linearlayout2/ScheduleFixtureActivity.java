@@ -32,7 +32,6 @@ public class ScheduleFixtureActivity extends AppCompatActivity {
 
         firebaseManager = FirebaseManager.getInstance();
 
-        // Access control check for ATHLETE role
         String uid = firebaseManager.getCurrentUserId();
         firebaseManager.getUserByUid(uid, new FirebaseManager.DataCallback<com.example.linearlayout2.models.User>() {
             @Override
@@ -61,7 +60,6 @@ public class ScheduleFixtureActivity extends AppCompatActivity {
         btnSaveFixture = findViewById(R.id.btnSaveFixture);
         fixtureProgress = findViewById(R.id.fixtureProgress);
 
-        // Auto-detect manager's sport & pre-fill home team name
         String email = firebaseManager.getCurrentUserEmail();
         if (email != null) {
             String lower = email.toLowerCase();
@@ -94,7 +92,6 @@ public class ScheduleFixtureActivity extends AppCompatActivity {
             }
         });
 
-        // Initialize state
         if (radioUpcoming.isChecked()) {
             editHomeScore.setText("0");
             editAwayScore.setText("0");

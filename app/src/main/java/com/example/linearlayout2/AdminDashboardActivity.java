@@ -48,7 +48,6 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
         firebaseManager = FirebaseManager.getInstance();
 
-        // Access control guard: verify admin privileges
         String uid = firebaseManager.getCurrentUserId();
         firebaseManager.getUserByUid(uid, new FirebaseManager.DataCallback<User>() {
             @Override
@@ -136,7 +135,6 @@ public class AdminDashboardActivity extends AppCompatActivity {
         Spinner spinnerManagerEmail = dialogView.findViewById(R.id.spinnerDialogManagerEmail);
         EditText editDesc = dialogView.findViewById(R.id.editDialogClubDesc);
 
-        // Fetch existing user emails for dropdown
         List<String> emailList = new ArrayList<>();
         firebaseManager.getAllUsers(new FirebaseManager.DataCallback<List<User>>() {
             @Override
@@ -213,7 +211,6 @@ public class AdminDashboardActivity extends AppCompatActivity {
         ArrayAdapter<String> adapterRoles = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, roles);
         spinnerType.setAdapter(adapterRoles);
 
-        // Fetch existing clubs for manager assignment dropdown
         List<String> clubList = new ArrayList<>();
         firebaseManager.getAllClubs(new FirebaseManager.DataCallback<List<Club>>() {
             @Override

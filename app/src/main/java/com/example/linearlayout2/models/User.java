@@ -9,7 +9,6 @@ public class User {
     private long createdAt;
 
     public User() {
-        // Default constructor required for Firebase Firestore serialization
     }
 
     public User(String uid, String name, String email, String userType, long createdAt) {

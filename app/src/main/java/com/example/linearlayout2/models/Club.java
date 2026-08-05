@@ -10,7 +10,6 @@ public class Club {
     private long createdAt;
 
     public Club() {
-        // Required for Firestore
     }
 
     public Club(String id, String name, String sport, String description, String managerEmail, String status, long createdAt) {

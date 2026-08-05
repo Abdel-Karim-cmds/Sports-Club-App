@@ -47,7 +47,6 @@ public class userDashboard extends AppCompatActivity {
             txtUserEmail.setText(firebaseManager.getCurrentUserEmail());
         }
 
-        // Hide Club Manager portal button by default for regular athlete users
         if (btnManagerPortal != null) {
             btnManagerPortal.setVisibility(View.GONE);
 

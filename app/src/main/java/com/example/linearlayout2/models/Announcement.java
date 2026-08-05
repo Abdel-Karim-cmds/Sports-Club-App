@@ -9,7 +9,6 @@ public class Announcement {
     private String author;
 
     public Announcement() {
-        // Required for Firestore
     }
 
     public Announcement(String id, String title, String content, String date, String category, String author) {
